@@ -6,7 +6,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
 
 <div class="container-fluid">
      <div class="row">
-        <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
+        <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="small-box bg-info ">
                 <div class="inner">
                     <h3><?= $stats['clientsTotal'] ?></h3>
@@ -20,7 +20,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 </a>
             </div>
         </div>
-        <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
+        <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="small-box bg-success">
                 <div class="inner">
                     <h3><?= $stats['ordersPending'] ?></h3>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 </a>
             </div>
         </div>
-        <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
+        <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="small-box bg-danger">
                 <div class="inner">
                     <h3><?= $stats['ordersCancelled'] ?></h3>
