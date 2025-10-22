@@ -10,38 +10,70 @@ use yii\grid\GridView;
 /** @var app\models\ClientSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Clients';
+$this->title = 'Clientes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Client', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Adicionar novo Cliente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?= $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'ID',
-            'NAME',
-            'EMAIL:email',
-            'STATUS',
-            'CREATED_AT',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Client $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'ID' => $model->ID]);
-                 }
+    <div class="table-responsive">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'headerRowOptions' => ['style' => 'background-color: #f8f9fa;'],
+            'summary' => 'Exibindo <b>{count}</b> de <b>{totalCount}</b> registro(s)',
+            'emptyText' => 'Nenhum registro encontrado.',
+            'columns' => [
+                'ID',
+                [
+                    'attribute' => 'NAME',
+                    'format' => 'raw',
+                    'value' => fn($m) => Html::a(Html::encode($m->NAME), ['view', 'ID' => $m->ID]),
+                ],
+                'EMAIL:email',
+                'STATUS',
+                [
+                    'attribute' => 'CREATED_AT',
+                    'label' => 'Data de cadastro',
+                    'format' => 'raw',
+                    'value' => function ($m) {
+                                $dt = DateTime::createFromFormat('d-M-y h.i.s.u A', $m->CREATED_AT);
+                                return $dt ? $dt->format('d/m/Y H:i') : $m->CREATED_AT;
+                            },
+                    'contentOptions' => ['class' => 'text-nowrap'],
+                ],
+                [
+                    'class' => yii\grid\ActionColumn::class,
+                    'header' => 'Ações',
+                    'contentOptions' => ['class' => 'text-end'],
+                    'template' => '{view} {update} {delete}',
+                    'buttons' => [
+                        'view' => fn($url) =>
+                            Html::a('<i class="fas fa-eye"></i>', $url, [
+                                'title' => 'Visualizar',
+                                'class' => 'btn btn-sm btn-outline-primary me-1 mb-1',
+                            ]),
+                        'update' => fn($url) =>
+                            Html::a('<i class="fas fa-edit"></i>', $url, [
+                                'title' => 'Editar',
+                                'class' => 'btn btn-sm btn-outline-warning me-1 mb-1',
+                            ]),
+                        'delete' => fn($url) =>
+                            Html::a('<i class="fas fa-trash"></i>', $url, [
+                                'title' => 'Excluir',
+                                'class' => 'btn btn-sm btn-outline-danger me-1 mb-1',
+                                'data-method' => 'post',
+                                'data-confirm' => 'Tem certeza que deseja excluir?',
+                            ]),
+                    ],
+                    'urlCreator' => function ($action, Client $model, $key, $index, $column) {
+                                return Url::toRoute([$action, 'ID' => $model->ID]);
+                            }
+                ],
             ],
-        ],
-    ]); ?>
-
-
+        ]); ?>
+    </div>
 </div>
