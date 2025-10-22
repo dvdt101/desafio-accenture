@@ -13,23 +13,29 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => ['data-pjax' => 1],
+        'fieldConfig' => [
+            'options' => ['class' => 'form-group mb-2'],
+            'labelOptions' => ['class' => 'mb-1 font-weight-bold'],
+            'inputOptions' => ['class' => 'form-control form-control-sm'],
+        ],
     ]); ?>
 
-    <?= $form->field($model, 'ID') ?>
-
-    <?= $form->field($model, 'NAME') ?>
-
-    <?= $form->field($model, 'EMAIL') ?>
-
-    <?= $form->field($model, 'STATUS') ?>
-
-    <?= $form->field($model, 'CREATED_AT') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="row align-items-end">
+        <div class="col-sm-2">
+            <?= $form->field($model, 'NAME') ?>
+        </div>
+        <div class="col-auto d-flex align-items-end">
+            <div class="d-flex gap-2 mb-2 m-1">
+                <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary btn-sm']) ?>
+            </div>
+            <div class="d-flex gap-2 mb-2 m-1">  
+                <?= Html::a('Limpar', ['index'], ['class' => 'btn btn-outline-secondary btn-sm']) ?>
+            </div>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>
+
 
 </div>
