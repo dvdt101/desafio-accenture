@@ -35,7 +35,7 @@
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
-                    ['label' => 'Dashboard', 'icon' => 'tachometer-alt', 'url' => ['site/index']],
+                    ['label' => 'Dashboard', 'icon' => 'tachometer-alt', 'url' => ['dashboard/index']],
                     ['label' => 'Clientes', 'icon' => 'user', 'url' => ['client/index']],
                     ['label' => 'Pedidos', 'icon' => 'shopping-cart', 'url' => ['order/index']],
                     ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
