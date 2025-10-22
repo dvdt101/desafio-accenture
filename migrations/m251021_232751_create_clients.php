@@ -14,7 +14,7 @@ class m251021_232751_create_clients extends Migration
             'NAME' => $this->string(100)->notNull(),
             'EMAIL' => $this->string(100)->notNull(),
             'STATUS' => $this->string(10)->notNull()->defaultValue('ATIVO'),
-            'REGISTER_DATA' => $this->date()->notNull()->defaultExpression('SYSDATE'),
+            'CREATED_AT' => $this->timestamp()->notNull()->defaultExpression('SYSTIMESTAMP'),
         ]);
         $this->execute('ALTER TABLE CLIENTS ADD CONSTRAINT UQ_CLIENTS_EMAIL UNIQUE (EMAIL)');
     }
