@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $dt = DateTime::createFromFormat('d-M-y h.i.s.u A', $m->CREATED_AT);
                                 return $dt ? $dt->format('d/m/Y H:i') : $m->CREATED_AT;
                             },
-                    'contentOptions' => ['class' => 'text-nowrap'],
                 ],
                 [
                     'class' => yii\grid\ActionColumn::class,

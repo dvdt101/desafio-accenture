@@ -7,20 +7,17 @@ use yii\widgets\DetailView;
 /** @var app\models\Client $model */
 
 $this->title = $model->NAME;
-$this->params['breadcrumbs'][] = ['label' => 'Clients', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="client-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
+        <?= Html::a('Editar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['delete', 'ID' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja excluir?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -33,7 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'NAME',
             'EMAIL:email',
             'STATUS',
-            'CREATED_AT',
+            [
+                'attribute' => 'CREATED_AT',
+                'label' => 'Data de cadastro',
+                'value' => $model->formattedCreatedAt,
+            ],
         ],
     ]) ?>
 
