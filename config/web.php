@@ -15,7 +15,8 @@ $config = [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@app/views' => '@vendor/hail812/yii2-adminlte3/src/views'
+                    '@vendor/hail812/yii2-adminlte3/src/views' => '@app/views',
+                    '@app/views' => '@app/views',
                 ],
             ],
         ],
