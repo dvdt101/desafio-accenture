@@ -14,8 +14,8 @@ class Order extends ActiveRecord
     public function rules()
     {
         return [
-            [['CLIENT_ID', 'TOTAL_VALUE', 'STATUS'], 'required'],
-            ['TOTAL_VALUE', 'number', 'min' => 0],
+            [['CLIENT_ID', 'TOTAL_VALUE', 'STATUS'], 'required', 'message' => 'O campo {attribute} é obrigatório.'],
+            ['TOTAL_VALUE', 'number', 'min' => 0, 'message' => 'O campo {attribute} deve ser um número.'],
             ['STATUS', 'in', 'range' => ['PENDENTE', 'PAGO', 'CANCELADO']],
             ['CLIENT_ID', 'exist', 'targetClass' => Client::class, 'targetAttribute' => ['CLIENT_ID' => 'ID']],
         ];
@@ -37,4 +37,13 @@ class Order extends ActiveRecord
     {
         return $this->hasOne(Client::class, ['ID' => 'CLIENT_ID']);
     }
+
+    public function getFormattedOrderDate()
+    {
+        $dt = \DateTime::createFromFormat('d-M-y h.i.s.u A', $this->ORDER_DATE)
+            ?: \DateTime::createFromFormat('d-M-y h.i.s A', $this->ORDER_DATE);
+
+        return $dt ? $dt->format('d/m/Y H:i') : $this->ORDER_DATE;
+    }
+
 }

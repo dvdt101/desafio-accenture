@@ -6,21 +6,18 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Order $model */
 
-$this->title = $model->ID;
-$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->title = 'Pedido#' . $model->ID;
+$this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="order-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
+        <?= Html::a('Editar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Deletar', ['delete', 'ID' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Tem certeza que deseja excluir?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -30,10 +27,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'ID',
-            'CLIENT_ID',
+            [
+                'attribute' => 'CLIENT_ID',
+                'label' => 'Cliente',
+                'format' => 'raw',
+                'value' => function ($model) {
+                if ($model->client) {
+                    return Html::a(
+                        Html::encode($model->client->NAME),
+                        ['client/view', 'ID' => $model->CLIENT_ID],
+                        ['title' => 'Ver Cliente']
+                    );
+                }
+                return '<span class="text-muted">Sem cliente</span>';
+            },
+            ],
             'TOTAL_VALUE',
             'STATUS',
-            'ORDER_DATE',
+            [
+                'attribute' => 'ORDER_DATE',
+                'label' => 'Data de cadastro',
+                'value' => $model->formattedOrderDate,
+            ],
         ],
     ]) ?>
 
