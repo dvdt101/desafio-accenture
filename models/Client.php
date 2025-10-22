@@ -10,12 +10,12 @@ class Client extends ActiveRecord
 
     public function rules()
     {
-        return [
-            [['NAME', 'EMAIL', 'STATUS'], 'required'],
-            ['EMAIL', 'email'],
-            ['EMAIL', 'unique'],
-            ['STATUS', 'in', 'range' => ['ATIVO', 'INATIVO']],
-        ];
+  return [
+        [['NAME', 'EMAIL', 'STATUS'], 'required', 'message' => 'O campo {attribute} é obrigatório.'],
+        ['EMAIL', 'email', 'message' => 'Digite um e-mail válido.'],
+        ['EMAIL', 'unique', 'message' => 'Este e-mail já está cadastrado.'],
+        ['STATUS', 'in', 'range' => ['ATIVO', 'INATIVO'], 'message' => 'Selecione um status válido.'],
+    ];
     }
 
     public function attributeLabels()
