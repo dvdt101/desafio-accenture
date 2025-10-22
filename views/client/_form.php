@@ -42,7 +42,10 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Adicionar', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(
+            $model->isNewRecord ? 'Adicionar Cliente' : 'Salvar Alterações',
+            ['class' => 'btn btn-success']
+        ) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
