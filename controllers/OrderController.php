@@ -7,6 +7,8 @@ use app\models\OrderSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Client;
+
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -68,6 +70,11 @@ class OrderController extends Controller
     public function actionCreate()
     {
         $model = new Order();
+        $clients = Client::find()
+            ->select(['NAME', 'ID'])
+            ->orderBy(['NAME' => SORT_ASC])
+            ->indexBy('ID')
+            ->column();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -79,6 +86,7 @@ class OrderController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'clients' => $clients,
         ]);
     }
 
@@ -92,6 +100,11 @@ class OrderController extends Controller
     public function actionUpdate($ID)
     {
         $model = $this->findModel($ID);
+        $clients = Client::find()
+            ->select(['NAME', 'ID'])
+            ->orderBy(['NAME' => SORT_ASC])
+            ->indexBy('ID')
+            ->column();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'ID' => $model->ID]);
@@ -99,6 +112,7 @@ class OrderController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'clients' => $clients,
         ]);
     }
 
