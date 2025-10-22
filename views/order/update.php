@@ -5,17 +5,15 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Order $model */
 
-$this->title = 'Update Order: ' . $model->ID;
-$this->params['breadcrumbs'][] = ['label' => 'Orders', 'url' => ['index']];
+$this->title = 'Editar Pedido: #' . $model->ID;
+$this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->ID, 'url' => ['view', 'ID' => $model->ID]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Editar';
 ?>
 <div class="order-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'clients'=> $clients,
     ]) ?>
 
 </div>
