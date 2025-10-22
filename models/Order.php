@@ -14,7 +14,7 @@ class Order extends ActiveRecord
     public function rules()
     {
         return [
-            [['CLIENT_ID', 'ORDER_DATE', 'TOTAL_VALUE', 'STATUS'], 'required'],
+            [['CLIENT_ID', 'TOTAL_VALUE', 'STATUS'], 'required'],
             ['TOTAL_VALUE', 'number', 'min' => 0],
             ['STATUS', 'in', 'range' => ['PENDENTE', 'PAGO', 'CANCELADO']],
             ['CLIENT_ID', 'exist', 'targetClass' => Client::class, 'targetAttribute' => ['CLIENT_ID' => 'ID']],
