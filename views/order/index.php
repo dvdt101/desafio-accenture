@@ -48,7 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return '<span class="text-muted">Sem cliente</span>';
                             },
                 ],
-                'TOTAL_VALUE',
+                [
+                    'attribute' => 'TOTAL_VALUE',
+                    'label' => 'Valor',
+                    'format' => ['currency', 'BRL'],
+                    'contentOptions' => ['class' => 'text-end'],
+                ],
                 'STATUS',
                 [
                     'attribute' => 'ORDER_DATE',

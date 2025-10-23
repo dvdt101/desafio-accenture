@@ -78,12 +78,11 @@ class OrderController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                \Yii::info($this->request->post(), 'debug');
                 return $this->redirect(['view', 'ID' => $model->ID]);
             }
-        } else {
-            $model->loadDefaultValues();
         }
-
+        
         return $this->render('create', [
             'model' => $model,
             'clients' => $clients,
@@ -105,6 +104,10 @@ class OrderController extends Controller
             ->orderBy(['NAME' => SORT_ASC])
             ->indexBy('ID')
             ->column();
+
+        if ($model->TOTAL_VALUE !== null && $model->TOTAL_VALUE !== '') {
+            $model->TOTAL_VALUE = number_format((float) $model->TOTAL_VALUE, 2, ',', '.');
+        }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'ID' => $model->ID]);

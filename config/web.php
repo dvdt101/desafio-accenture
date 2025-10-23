@@ -13,6 +13,12 @@ $config = [
         '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
+        'formatter' => [
+            'locale' => 'pt_BR',
+            'currencyCode' => 'BRL',
+            'thousandSeparator' => '.',
+            'decimalSeparator' => ',',
+        ],
         'view' => [
             'theme' => [
                 'pathMap' => [
