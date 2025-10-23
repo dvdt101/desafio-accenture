@@ -7,7 +7,7 @@ use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\data\ActiveDataProvider;
 /**
  * ClientController implements the CRUD actions for Client model.
  */
@@ -40,7 +40,6 @@ class ClientController extends Controller
     {
         $searchModel = new ClientSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -55,8 +54,15 @@ class ClientController extends Controller
      */
     public function actionView($ID)
     {
+        $model = $this->findModel($ID);
+        $ordersDataProvider = new ActiveDataProvider([
+            'query' => $model->getOrders()->orderBy(['ORDER_DATE' => SORT_DESC]),
+            'pagination' => ['pageSize' => 10],
+        ]);
+        
         return $this->render('view', [
-            'model' => $this->findModel($ID),
+            'model' => $model,
+            'ordersDataProvider' => $ordersDataProvider,
         ]);
     }
 

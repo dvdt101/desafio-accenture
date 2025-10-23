@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use yii\grid\GridView;
+use app\models\Order;
+use yii\helpers\Url;
 /** @var yii\web\View $this */
 /** @var app\models\Client $model */
 
@@ -38,4 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <div class="table-responsive">
+        <?= $this->render('@app/views/order/_gradeView', [
+            'dataProvider' => $ordersDataProvider,
+            'isClientView' => true,
+        ]) ?>
+    </div>
 </div>
