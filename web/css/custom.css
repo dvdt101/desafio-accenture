@@ -1,0 +1,114 @@
+.content-header, .detail-view{
+    a {
+        color: #a100ff !important;
+    }
+
+    a:hover {
+        color: #c964ff !important;
+    }
+}
+
+.btn-primary{
+     background-color: #a100ff !important;
+     border-color: #a100ff!important;
+}
+
+.main-sidebar {
+    background: linear-gradient(160deg, #2b004c 0%, #a100ff 50%, #3a0070 100%);
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.08);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brand-image {
+    margin-left: 0 !important;
+}
+
+.brand-link {
+    border-color: #3A0070 !important;
+}
+
+.user-panel {
+    border: 0 !important;
+}
+
+.nav-sidebar .nav-item>.nav-link.active {
+    background-color: #a100ff !important;
+    box-shadow: 0 0 10px rgba(161, 0, 255, 0.6);
+}
+
+.small-box {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.small-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(161, 0, 255, 0.2);
+}
+
+.grid-view th {
+    background-color: #a100ff !important;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.grid-view th>a {
+    color: #fff !important;
+}
+
+.grid-view tbody tr:hover {
+    background-color: rgba(161, 0, 255, 0.08) !important;
+}
+
+.grid-view a {
+    color: #a100ff !important;
+    font-weight: 500;
+}
+
+.grid-view a:hover {
+    color: #c964ff !important;
+    text-decoration: underline;
+}
+
+.btn-outline-primary {
+    border: 0 !important;
+    color: #a100ff !important;
+}
+
+.btn-outline-primary:hover {
+    border: 0 !important;
+    color: #fff !important;
+}
+
+.btn-outline-primary:hover i {
+    color: #fff !important;
+}
+
+.btn-outline-warning {
+    border: 0 !important;
+    color: #ffbb33 !important;
+}
+
+.btn-outline-warning:hover {
+    border: 0 !important;
+}
+
+.btn-outline-warning:hover i {
+    color: #fff !important;
+}
+
+.btn-outline-danger {
+    border: 0 !important;
+    color: #dc3545 !important;
+}
+
+.btn-outline-danger:hover {
+    border: 0 !important;
+}
+
+.btn-outline-danger:hover i {
+    color: #fff !important;
+}
