@@ -29,9 +29,6 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'NAME') ?>
         </div>
         <div class="col-sm-2">
-            <?= $form->field($model, 'EMAIL') ?>
-        </div>
-        <div class="col-sm-2">
             <?= $form->field($model, 'STATUS')->dropDownList(
                 [
                     'ATIVO' => 'Ativo',
