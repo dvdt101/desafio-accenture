@@ -69,7 +69,7 @@ use yii\widgets\MaskedInput;
     <div class="form-group">
         <?= Html::submitButton(
             $model->isNewRecord ? 'Adicionar Pedido' : 'Salvar Alterações',
-            ['class' => 'btn btn-success']
+            ['class' => 'btn btn-primary']
         ) ?>
     </div>
 

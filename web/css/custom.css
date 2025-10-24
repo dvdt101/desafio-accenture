@@ -14,7 +14,7 @@
 }
 
 .btn-primary {
-    background-color: #a100ff !important;
+    background: linear-gradient(160deg, #39036d 0%,  #a100ff 100%);
     border-color: #a100ff !important;
 }
 
