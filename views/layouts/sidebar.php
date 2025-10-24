@@ -12,7 +12,7 @@
             </div>
             <div class="info">
                 <div class="d-flex flex-column justify-content-center align-itens-center">
-                    <a href="#" class="d-block">Usuário</a>
+                    <a href="#" class="d-block"><?=Yii::$app->user->identity->NAME?></a>
                     <?php if (!Yii::$app->user->isGuest): ?>
                         <?= \yii\helpers\Html::a(
                             '<i class="fas fa-sign-out-alt"></i> Sair',
@@ -30,7 +30,7 @@
             echo \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     ['label' => 'Dashboard', 'icon' => 'tachometer-alt', 'url' => ['dashboard/index']],
-                    ['label' => 'Clientes', 'icon' => 'user', 'url' => ['client/index']],
+                    ['label' => 'Clientes', 'icon' => 'user',  'url' => ['client/index']],
                     ['label' => 'Pedidos', 'icon' => 'shopping-cart', 'url' => ['order/index']],
                 ],
             ]);

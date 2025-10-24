@@ -68,6 +68,17 @@ $config = [
 
     ],
     'params' => $params,
+'as access' => [
+    'class' => yii\filters\AccessControl::class,
+    'except' => ['site/login', 'site/error'],
+    'rules' => [
+        [
+            'allow' => true,
+            'roles' => ['@'],
+        ],
+    ],
+],
+
 ];
 
 if (YII_ENV_DEV) {

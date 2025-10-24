@@ -7,9 +7,9 @@ use yii\helpers\Html;
 
         <?php $form = \yii\bootstrap4\ActiveForm::begin(['id' => 'login-form']) ?>
 
-        <?= $form->field($model,'username', [
+        <?= $form->field($model, 'username', [
             'options' => ['class' => 'form-group has-feedback'],
-            'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"><span class="fas fa-envelope"></span></div></div>',
+            'inputTemplate' => '{input}<div class="input-group-append"></div>',
             'template' => '{beginWrapper}{input}{error}{endWrapper}',
             'wrapperOptions' => ['class' => 'input-group mb-3']
         ])
@@ -18,7 +18,7 @@ use yii\helpers\Html;
 
         <?= $form->field($model, 'password', [
             'options' => ['class' => 'form-group has-feedback'],
-            'inputTemplate' => '{input}<div class="input-group-append"><div class="input-group-text"></div></div>',
+            'inputTemplate' => '{input}<div class="input-group-append"></div>',
             'template' => '{beginWrapper}{input}{error}{endWrapper}',
             'wrapperOptions' => ['class' => 'input-group mb-3']
         ])
@@ -35,17 +35,16 @@ use yii\helpers\Html;
                     'uncheck' => null
                 ]) ?>
             </div>
-            <div class="col-4">
+            <div class="col-4 d-flex align-items-center justify-content-end">
                 <?= Html::submitButton('Entrar', ['class' => 'btn btn-primary btn-block']) ?>
             </div>
         </div>
 
         <?php \yii\bootstrap4\ActiveForm::end(); ?>
 
-        
-        <!-- <p class="mb-1">
-            <a href="forgot-password.html">I forgot my password</a>
-        </p> -->
+        <p class="mb-1">
+            <a href="#">Esqueci minha senha</a>
+        </p>
     </div>
     <!-- /.login-card-body -->
 </div>
