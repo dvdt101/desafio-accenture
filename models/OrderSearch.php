@@ -40,34 +40,41 @@ class OrderSearch extends Order
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $formName = null)
-    {
-        $query = Order::find();
+public function search($params, $formName = null)
+{
+    $query = Order::find();
 
-        // add conditions that should always apply here
+    $dataProvider = new ActiveDataProvider([
+        'query' => $query,
+    ]);
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+    $this->load($params, $formName);
 
-        $this->load($params, $formName);
-
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'ID' => $this->ID,
-            'CLIENT_ID' => $this->CLIENT_ID,
-            'TOTAL_VALUE' => $this->TOTAL_VALUE,
-            'ORDER_DATE' => $this->ORDER_DATE,
-        ]);
-
-        $query->andFilterWhere(['like', 'STATUS', $this->STATUS]);
-
+    if (!$this->validate()) {
         return $dataProvider;
     }
+
+    if (!empty($this->ORDER_DATE)) {
+
+        $query->andWhere(
+            "ORDER_DATE BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD HH24:MI:SS')
+                           AND TO_DATE(:endDate,   'YYYY-MM-DD HH24:MI:SS')",
+            [
+                ':startDate' => $this->ORDER_DATE . ' 00:00:00',
+                ':endDate'   => $this->ORDER_DATE . ' 23:59:59',
+            ]
+        );
+    }
+
+    $query->andFilterWhere([
+        'ID'         => $this->ID,
+        'CLIENT_ID'  => $this->CLIENT_ID,
+        'TOTAL_VALUE'=> $this->TOTAL_VALUE,
+    ]);
+
+    $query->andFilterWhere(['like', 'STATUS', $this->STATUS]);
+
+    return $dataProvider;
+}
+
 }

@@ -43,9 +43,16 @@ class OrderController extends Controller
         $searchModel = new OrderSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $clients = Client::find()
+            ->select(['NAME', 'ID'])
+            ->orderBy(['NAME' => SORT_ASC])
+            ->indexBy('ID')
+            ->column();
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'clients'=> $clients
         ]);
     }
 
@@ -82,7 +89,7 @@ class OrderController extends Controller
                 return $this->redirect(['view', 'ID' => $model->ID]);
             }
         }
-        
+
         return $this->render('create', [
             'model' => $model,
             'clients' => $clients,

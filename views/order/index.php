@@ -13,19 +13,20 @@ use yii\grid\GridView;
 $this->title = 'Pedidos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="order-index">
+<div class="order-index p-2">
     <p>
         <?= Html::a('Novo Pedido', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-
-    <div class="table-responsive">
-        <?= $this->render('_gradeView', [
-            'dataProvider' => $dataProvider,
-        ]) ?>
+    <div class="bg-white p-2 mb-2 border rounded">
+        <?=$this->render('_search', ['model' => $searchModel, 'clients' => $clients]);?>
     </div>
-
+    <div class="bg-white p-2 mb-2 border rounded">
+        <div class="table-responsive">
+            <?= $this->render('_gradeView', [
+                'dataProvider' => $dataProvider,
+            ]) ?>
+        </div>
+    </div>
 
 </div>
