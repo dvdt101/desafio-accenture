@@ -1,4 +1,5 @@
-.content-header, .detail-view{
+.content-header,
+.detail-view {
     a {
         color: #a100ff !important;
     }
@@ -8,9 +9,13 @@
     }
 }
 
-.btn-primary{
-     background-color: #a100ff !important;
-     border-color: #a100ff!important;
+.accenture-color {
+    color: #a100ff !important;
+}
+
+.btn-primary {
+    background-color: #a100ff !important;
+    border-color: #a100ff !important;
 }
 
 .main-sidebar {
@@ -81,6 +86,7 @@
 .btn-outline-primary:hover {
     border: 0 !important;
     color: #fff !important;
+    background-color: #c964ff;
 }
 
 .btn-outline-primary:hover i {
@@ -94,10 +100,12 @@
 
 .btn-outline-warning:hover {
     border: 0 !important;
+    background-color: #c964ff;
 }
 
 .btn-outline-warning:hover i {
     color: #fff !important;
+    background-color: #c964ff;
 }
 
 .btn-outline-danger {
@@ -107,6 +115,7 @@
 
 .btn-outline-danger:hover {
     border: 0 !important;
+    background-color: #c964ff;
 }
 
 .btn-outline-danger:hover i {
