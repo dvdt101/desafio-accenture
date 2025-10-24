@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-index">
     <p>
-        <?= Html::a('Adicionar novo Cliente', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Adicionar Cliente', ['create'], ['class' => 'btn btn-primary']) ?>
     </p>
     <?= $this->render('_search', ['model' => $searchModel]); ?>
 
