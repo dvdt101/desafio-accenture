@@ -15,20 +15,6 @@
             </div>
         </div>
 
-        <!-- SidebarSearch Form -->
-        <!-- href be escaped -->
-        <!-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <?php
             echo \hail812\adminlte\widgets\Menu::widget([
@@ -36,7 +22,7 @@
                     ['label' => 'Dashboard', 'icon' => 'tachometer-alt', 'url' => ['dashboard/index']],
                     ['label' => 'Clientes', 'icon' => 'user', 'url' => ['client/index']],
                     ['label' => 'Pedidos', 'icon' => 'shopping-cart', 'url' => ['order/index']],
-                    ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Sair', 'url' => ['site/login'], 'icon' => 'sign-out-alt', 'visible' => Yii::$app->user->isGuest],
                 ],
             ]);
             ?>
