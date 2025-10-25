@@ -8,6 +8,7 @@ use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $PASSWORD_PLAIN;
     public static function tableName()
     {
         return 'USERS';
@@ -16,10 +17,24 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['NAME', 'EMAIL', 'PASSWORD_HASH', 'PROFILE', 'STATUS'], 'required'],
+            [['NAME', 'EMAIL', 'USERNAME', 'PASSWORD_HASH', 'PROFILE', 'STATUS'], 'required'],
+            [['PASSWORD_PLAIN'], 'safe'],
             ['EMAIL', 'email'],
             ['EMAIL', 'unique'],
             ['STATUS', 'in', 'range' => ['ATIVO', 'INATIVO']],
+        ];
+    }
+
+        public function attributeLabels()
+    {
+        return [
+            'ID' => 'ID',
+            'PASSWORD_PLAIN'=> 'Senha',
+            'USERNAME' => 'Usuário',
+            'PROFILE' => 'Perfil',
+            'STATUS' => 'Status',
+            'EMAIL' => 'E-mail',
+            'NAME' => 'Nome Completo',
         ];
     }
 
