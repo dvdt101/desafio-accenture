@@ -120,3 +120,7 @@
 .btn-outline-danger:hover i {
     color: #fff !important;
 }
+
+.nav-link.active{
+    color: white!important;
+}
