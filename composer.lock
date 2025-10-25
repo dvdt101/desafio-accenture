@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9622af66128e367d671e918003d5bec",
+    "content-hash": "bbddd3ba80fac61ad63da95c887a7cfb",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -513,6 +513,54 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "pdynarowski/yii2-oci8",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pdynarowski/Yii2-Oci8.git",
+                "reference": "b049fd88af4555ffd2400371ce13fe5de48822b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pdynarowski/Yii2-Oci8/zipball/b049fd88af4555ffd2400371ce13fe5de48822b6",
+                "reference": "b049fd88af4555ffd2400371ce13fe5de48822b6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "yajra/laravel-pdo-via-oci8": "^3.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "pdynarowski\\yii2oci8\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "pd",
+                    "email": "pdynarowski@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 extension which based on yajra/laravel-pdo-via-oci8",
+            "keywords": [
+                "database",
+                "oci8",
+                "oracle",
+                "yii2"
+            ],
+            "support": {
+                "email": "pdynarowski@gmail.com",
+                "source": "https://github.com/pdynarowski/Yii2-Oci8/tree/2.0.2"
+            },
+            "time": "2021-03-06T21:11:31+00:00"
         },
         {
             "name": "psr/container",
@@ -1405,6 +1453,70 @@
                 }
             ],
             "time": "2025-04-25T09:37:31+00:00"
+        },
+        {
+            "name": "yajra/laravel-pdo-via-oci8",
+            "version": "v3.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/pdo-via-oci8.git",
+                "reference": "ae0f521edb8e65862b0972a66ef4a4d50974e09a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yajra/pdo-via-oci8/zipball/ae0f521edb8e65862b0972a66ef4a4d50974e09a",
+                "reference": "ae0f521edb8e65862b0972a66ef4a4d50974e09a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-oci8": "*",
+                "ext-pdo": "*",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yajra\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com"
+                }
+            ],
+            "description": "PDO userspace driver proxying calls to PHP OCI8 driver",
+            "support": {
+                "issues": "https://github.com/yajra/pdo-via-oci8/issues",
+                "source": "https://github.com/yajra/pdo-via-oci8/tree/v3.7.2"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.me/yajra",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/yajra",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/yajra",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2025-09-24T14:47:33+00:00"
         },
         {
             "name": "yiisoft/yii2",
