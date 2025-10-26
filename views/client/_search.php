@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'ID') ?>
         </div>
         <div class="col-sm-2">
-            <?= $form->field($model, 'NAME') ?>
+            <?= $form->field($model, 'NAME', ['maxlength' => 100]) ?>
         </div>
         <div class="col-sm-2">
             <?= $form->field($model, 'STATUS')->dropDownList(

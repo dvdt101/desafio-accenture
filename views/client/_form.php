@@ -18,12 +18,12 @@ use yii\widgets\ActiveForm;
 
     <div class="mb-1 row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'NAME')->textInput(['maxlength' => true, 'placeholder' => 'Digite o nome do cliente']) ?>
+            <?= $form->field($model, 'NAME')->textInput(['maxlength' => 100, 'placeholder' => 'Digite o nome do cliente']) ?>
         </div>
     </div>
     <div class="mb-1 row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true, 'placeholder' => 'Digite o E-mail do cliente']) ?>
+            <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => 100, 'placeholder' => 'Digite o E-mail do cliente']) ?>
         </div>
     </div>
     <div class="row">
