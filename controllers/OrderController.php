@@ -96,7 +96,12 @@ class OrderController extends Controller
                 ->select(['NAME', 'ID'])
                 ->orderBy(['NAME' => SORT_ASC])
                 ->indexBy('ID')
+                ->where(['STATUS' => 'ATIVO'])
                 ->column();
+
+            if (!$clients) {
+                throw new Exception('Nenhum cliente cadastrado ou ativo, cadastre um cliente ou ative para fazer um pedido.', 404);
+            }
 
             if ($this->request->isPost) {
                 if ($model->load($this->request->post()) && $model->save()) {
@@ -108,7 +113,15 @@ class OrderController extends Controller
             }
         } catch (Exception $e) {
             Yii::error($e->getMessage(), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Erro inesperado ao salvar o pedido.');
+
+            if ($e->getCode() == 404) {
+                $message = $e->getMessage();
+                Yii::$app->session->setFlash('error', $message);
+                return $this->redirect(['index']);
+            } else {
+                $message = 'Erro inesperado ao salvar o pedido.';
+                Yii::$app->session->setFlash('error', $message);
+            }
         }
 
         return $this->render('create', [
@@ -132,7 +145,12 @@ class OrderController extends Controller
                 ->select(['NAME', 'ID'])
                 ->orderBy(['NAME' => SORT_ASC])
                 ->indexBy('ID')
+                ->where(['STATUS' => 'ATIVO'])
                 ->column();
+
+            if (!$clients) {
+                throw new Exception('Nenhum cliente cadastrado ou ativo, cadastre ou ative um cliente para fazer um pedido.', 404);
+            }
 
             if ($model->TOTAL_VALUE !== null && $model->TOTAL_VALUE !== '') {
                 $model->TOTAL_VALUE = number_format((float) $model->TOTAL_VALUE, 2, ',', '.');
@@ -144,7 +162,14 @@ class OrderController extends Controller
             }
         } catch (Exception $e) {
             Yii::error($e->getMessage(), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Erro ao atualizar o pedido.');
+            if ($e->getCode() == 404) {
+                $message = $e->getMessage();
+                Yii::$app->session->setFlash('error', $message);
+                return $this->redirect(['index']);
+            } else {
+                $message = 'Erro ao atualizar o pedido.';
+                Yii::$app->session->setFlash('error', $message);
+            }
         }
 
         return $this->render('update', [
