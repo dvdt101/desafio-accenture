@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row align-items-end">
         <div class="col-sm-2">
-            <?= $form->field($model, 'USERNAME', ['maxlength' => 50]) ?>
+            <?= $form->field($model, 'USERNAME') ?>
         </div>
         <div class="col-sm-2">
             <?= $form->field($model, 'PROFILE')->dropDownList(
