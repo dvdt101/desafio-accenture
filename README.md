@@ -149,6 +149,7 @@ return [
    ```bash
    git clone https://github.com/dvdt101/desafio-accenture.git
    cd desafio-accenture
+   git checkout release/v1.0.0
    ```
 
 2. **Instalar dependências**
