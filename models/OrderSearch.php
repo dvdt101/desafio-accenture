@@ -5,6 +5,8 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Order;
+use Yii;
+use Exception;
 
 /**
  * OrderSearch represents the model behind the search form of `app\models\Order`.
@@ -40,41 +42,47 @@ class OrderSearch extends Order
      *
      * @return ActiveDataProvider
      */
-public function search($params, $formName = null)
-{
-    $query = Order::find();
+    public function search($params, $formName = null)
+    {
+        try {
+            $query = Order::find();
 
-    $dataProvider = new ActiveDataProvider([
-        'query' => $query,
-    ]);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
 
-    $this->load($params, $formName);
+            $this->load($params, $formName);
 
-    if (!$this->validate()) {
-        return $dataProvider;
+            if (!$this->validate()) {
+                return $dataProvider;
+            }
+
+            if (!empty($this->ORDER_DATE)) {
+                $query->andWhere(
+                    "ORDER_DATE BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD HH24:MI:SS')
+                                   AND TO_DATE(:endDate,   'YYYY-MM-DD HH24:MI:SS')",
+                    [
+                        ':startDate' => $this->ORDER_DATE . ' 00:00:00',
+                        ':endDate'   => $this->ORDER_DATE . ' 23:59:59',
+                    ]
+                );
+            }
+
+            $query->andFilterWhere([
+                'ID'         => $this->ID,
+                'CLIENT_ID'  => $this->CLIENT_ID,
+                'TOTAL_VALUE'=> $this->TOTAL_VALUE,
+            ]);
+
+            $query->andFilterWhere(['like', 'STATUS', $this->STATUS]);
+
+            return $dataProvider;
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao realizar a busca de pedidos.');
+            return new ActiveDataProvider([
+                'query' => Order::find()->where('0=1'),
+            ]);
+        }
     }
-
-    if (!empty($this->ORDER_DATE)) {
-
-        $query->andWhere(
-            "ORDER_DATE BETWEEN TO_DATE(:startDate, 'YYYY-MM-DD HH24:MI:SS')
-                           AND TO_DATE(:endDate,   'YYYY-MM-DD HH24:MI:SS')",
-            [
-                ':startDate' => $this->ORDER_DATE . ' 00:00:00',
-                ':endDate'   => $this->ORDER_DATE . ' 23:59:59',
-            ]
-        );
-    }
-
-    $query->andFilterWhere([
-        'ID'         => $this->ID,
-        'CLIENT_ID'  => $this->CLIENT_ID,
-        'TOTAL_VALUE'=> $this->TOTAL_VALUE,
-    ]);
-
-    $query->andFilterWhere(['like', 'STATUS', $this->STATUS]);
-
-    return $dataProvider;
-}
-
 }
