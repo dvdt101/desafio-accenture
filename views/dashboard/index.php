@@ -15,9 +15,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-user-plus"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
         <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
@@ -29,9 +26,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-user"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
         <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
@@ -43,9 +37,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-user"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
     </div>
@@ -59,9 +50,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
         <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
@@ -73,9 +61,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
         <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
@@ -87,9 +72,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
         <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
@@ -101,9 +83,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 <div class="icon">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
-                <a href="#" class="small-box-footer">
-                    More info <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
         </div>
     </div>

@@ -8,7 +8,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Client;
-
+use Yii;
+use Exception;
 
 /**
  * OrderController implements the CRUD actions for Order model.
@@ -40,19 +41,24 @@ class OrderController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new OrderSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        try {
+            $searchModel = new OrderSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
 
-        $clients = Client::find()
-            ->select(['NAME', 'ID'])
-            ->orderBy(['NAME' => SORT_ASC])
-            ->indexBy('ID')
-            ->column();
+            $clients = Client::find()
+                ->select(['NAME', 'ID'])
+                ->orderBy(['NAME' => SORT_ASC])
+                ->indexBy('ID')
+                ->column();
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao carregar pedidos.');
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'clients'=> $clients
+            'searchModel' => $searchModel ?? null,
+            'dataProvider' => $dataProvider ?? null,
+            'clients' => $clients ?? [],
         ]);
     }
 
@@ -64,8 +70,15 @@ class OrderController extends Controller
      */
     public function actionView($ID)
     {
+        try {
+            $model = $this->findModel($ID);
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao carregar o pedido.');
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($ID),
+            'model' => $model ?? null,
         ]);
     }
 
@@ -77,22 +90,30 @@ class OrderController extends Controller
     public function actionCreate()
     {
         $model = new Order();
-        $clients = Client::find()
-            ->select(['NAME', 'ID'])
-            ->orderBy(['NAME' => SORT_ASC])
-            ->indexBy('ID')
-            ->column();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                \Yii::info($this->request->post(), 'debug');
-                return $this->redirect(['view', 'ID' => $model->ID]);
+        try {
+            $clients = Client::find()
+                ->select(['NAME', 'ID'])
+                ->orderBy(['NAME' => SORT_ASC])
+                ->indexBy('ID')
+                ->column();
+
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    Yii::$app->session->setFlash('success', 'Pedido criado com sucesso.');
+                    return $this->redirect(['view', 'ID' => $model->ID]);
+                } else {
+                    Yii::$app->session->setFlash('warning', 'Não foi possível salvar o pedido. Verifique os campos.');
+                }
             }
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro inesperado ao salvar o pedido.');
         }
 
         return $this->render('create', [
             'model' => $model,
-            'clients' => $clients,
+            'clients' => $clients ?? [],
         ]);
     }
 
@@ -105,24 +126,30 @@ class OrderController extends Controller
      */
     public function actionUpdate($ID)
     {
-        $model = $this->findModel($ID);
-        $clients = Client::find()
-            ->select(['NAME', 'ID'])
-            ->orderBy(['NAME' => SORT_ASC])
-            ->indexBy('ID')
-            ->column();
+        try {
+            $model = $this->findModel($ID);
+            $clients = Client::find()
+                ->select(['NAME', 'ID'])
+                ->orderBy(['NAME' => SORT_ASC])
+                ->indexBy('ID')
+                ->column();
 
-        if ($model->TOTAL_VALUE !== null && $model->TOTAL_VALUE !== '') {
-            $model->TOTAL_VALUE = number_format((float) $model->TOTAL_VALUE, 2, ',', '.');
-        }
+            if ($model->TOTAL_VALUE !== null && $model->TOTAL_VALUE !== '') {
+                $model->TOTAL_VALUE = number_format((float) $model->TOTAL_VALUE, 2, ',', '.');
+            }
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'ID' => $model->ID]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Pedido atualizado com sucesso.');
+                return $this->redirect(['view', 'ID' => $model->ID]);
+            }
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao atualizar o pedido.');
         }
 
         return $this->render('update', [
-            'model' => $model,
-            'clients' => $clients,
+            'model' => $model ?? null,
+            'clients' => $clients ?? [],
         ]);
     }
 
@@ -135,7 +162,13 @@ class OrderController extends Controller
      */
     public function actionDelete($ID)
     {
-        $this->findModel($ID)->delete();
+        try {
+            $this->findModel($ID)->delete();
+            Yii::$app->session->setFlash('success', 'Pedido removido com sucesso.');
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao remover o pedido.');
+        }
 
         return $this->redirect(['index']);
     }
@@ -149,10 +182,14 @@ class OrderController extends Controller
      */
     protected function findModel($ID)
     {
-        if (($model = Order::findOne(['ID' => $ID])) !== null) {
-            return $model;
+        try {
+            if (($model = Order::findOne(['ID' => $ID])) !== null) {
+                return $model;
+            }
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('Página solicitada não existe.');
     }
 }

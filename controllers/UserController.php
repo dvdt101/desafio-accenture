@@ -8,7 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
-
+use Exception;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -40,12 +40,17 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        try {
+            $searchModel = new UserSearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao carregar usuários.');
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel ?? null,
+            'dataProvider' => $dataProvider ?? null,
         ]);
     }
 
@@ -57,8 +62,15 @@ class UserController extends Controller
      */
     public function actionView($ID)
     {
+        try {
+            $model = $this->findModel($ID);
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao carregar o usuário.');
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($ID),
+            'model' => $model ?? null,
         ]);
     }
 
@@ -71,27 +83,32 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($this->request->isPost) {
+        try {
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
+                    if (!empty($model->PASSWORD_PLAIN)) {
+                        $model->PASSWORD_HASH = Yii::$app->security->generatePasswordHash($model->PASSWORD_PLAIN);
+                    }
 
-            if ($model->load($this->request->post())) {
-                if (!empty($model->PASSWORD_PLAIN)) {
-                    $model->PASSWORD_HASH = Yii::$app->security->generatePasswordHash($model->PASSWORD_PLAIN);
+                    if ($model->save()) {
+                        Yii::$app->session->setFlash('success', 'Usuário criado com sucesso.');
+                        return $this->redirect(['view', 'ID' => $model->ID]);
+                    } else {
+                        Yii::$app->session->setFlash('warning', 'Não foi possível salvar o usuário. Verifique os campos.');
+                    }
                 }
-
-                if ($model->save()) {
-                    return $this->redirect(['view', 'ID' => $model->ID]);
-                }
+            } else {
+                $model->loadDefaultValues();
             }
-
-        } else {
-            $model->loadDefaultValues();
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro inesperado ao salvar o usuário.');
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-
 
     /**
      * Updates an existing User model.
@@ -102,21 +119,29 @@ class UserController extends Controller
      */
     public function actionUpdate($ID)
     {
-        $model = $this->findModel($ID);
+        try {
+            $model = $this->findModel($ID);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post())) {
-                if (!empty($model->PASSWORD_PLAIN)) {
-                    $model->PASSWORD_HASH = Yii::$app->security->generatePasswordHash($model->PASSWORD_PLAIN);
-                }
-                if ($model->save()) {
-                    return $this->redirect(['view', 'ID' => $model->ID]);
+            if ($this->request->isPost) {
+                if ($model->load($this->request->post())) {
+                    if (!empty($model->PASSWORD_PLAIN)) {
+                        $model->PASSWORD_HASH = Yii::$app->security->generatePasswordHash($model->PASSWORD_PLAIN);
+                    }
+                    if ($model->save()) {
+                        Yii::$app->session->setFlash('success', 'Usuário atualizado com sucesso.');
+                        return $this->redirect(['view', 'ID' => $model->ID]);
+                    } else {
+                        Yii::$app->session->setFlash('warning', 'Não foi possível atualizar. Verifique os campos.');
+                    }
                 }
             }
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao atualizar o usuário.');
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model ?? null,
         ]);
     }
 
@@ -129,10 +154,16 @@ class UserController extends Controller
      */
     public function actionDelete($ID)
     {
-        if ((int) $ID === (int) Yii::$app->user->id) {
-            throw new \yii\web\ForbiddenHttpException('Você não pode deletar a si mesmo.');
+        try {
+            if ((int) $ID === (int) Yii::$app->user->id) {
+                throw new \yii\web\ForbiddenHttpException('Você não pode deletar a si mesmo.');
+            }
+            $this->findModel($ID)->delete();
+            Yii::$app->session->setFlash('success', 'Usuário removido com sucesso.');
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
+            Yii::$app->session->setFlash('error', 'Erro ao remover o usuário.');
         }
-        $this->findModel($ID)->delete();
 
         return $this->redirect(['index']);
     }
@@ -146,8 +177,12 @@ class UserController extends Controller
      */
     protected function findModel($ID)
     {
-        if (($model = User::findOne(['ID' => $ID])) !== null) {
-            return $model;
+        try {
+            if (($model = User::findOne(['ID' => $ID])) !== null) {
+                return $model;
+            }
+        } catch (Exception $e) {
+            Yii::error($e->getMessage(), __METHOD__);
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
