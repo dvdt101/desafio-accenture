@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <div class="table-responsive">
-        <?= $this->render('@app/views/order/_gradeView', [
+        <?= $this->render('@app/views/order/_gridView', [
             'dataProvider' => $ordersDataProvider,
             'isClientView' => true,
         ]) ?>

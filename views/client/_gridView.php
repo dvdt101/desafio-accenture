@@ -51,7 +51,7 @@ $columns = [
                         'title' => 'Excluir',
                         'class' => 'btn btn-sm btn-outline-danger me-1 mb-1',
                         'data-method' => 'post',
-                        'data-confirm' => 'Tem certeza que deseja excluir?',
+                        'data-confirm' => "Tem certeza de que deseja excluir este cliente? \n Todos os pedidos vinculados a ele também serão removidos permanentemente.",
                     ]),
             ],
             'urlCreator' => function ($action, Client $model, $key, $index, $column) {

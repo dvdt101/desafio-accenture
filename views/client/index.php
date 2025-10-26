@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="bg-white p-2 border rounded">
         <div class="table-responsive">
-             <?= $this->render('_gradeView', [
+             <?= $this->render('_gridView', [
             'dataProvider' => $dataProvider,
         ]) ?>
         </div>
