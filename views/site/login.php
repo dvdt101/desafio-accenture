@@ -41,10 +41,6 @@ use yii\helpers\Html;
         </div>
 
         <?php \yii\bootstrap4\ActiveForm::end(); ?>
-
-        <p class="mb-1">
-            <a href="#">Esqueci minha senha</a>
-        </p>
     </div>
     <!-- /.login-card-body -->
 </div>
