@@ -17,10 +17,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['NAME', 'EMAIL', 'USERNAME', 'PASSWORD_HASH', 'PROFILE', 'STATUS'], 'required'],
+            [['NAME', 'EMAIL', 'USERNAME', 'PASSWORD_HASH', 'PROFILE', 'STATUS'], 'required', 'message' => 'O campo {attribute} é obrigatório.'],
             [['PASSWORD_PLAIN'], 'safe'],
-            ['EMAIL', 'email'],
-            ['EMAIL', 'unique'],
+            ['EMAIL', 'email', 'message' => 'Digite um e-mail válido.'],
+            ['EMAIL', 'unique', 'message' => 'Este e-mail já está cadastrado.'],
             ['STATUS', 'in', 'range' => ['ATIVO', 'INATIVO']],
         ];
     }
