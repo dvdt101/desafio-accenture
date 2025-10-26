@@ -14,7 +14,7 @@ use yii\helpers\Html;
             'wrapperOptions' => ['class' => 'input-group mb-3']
         ])
             ->label(true)
-            ->textInput(['placeholder' => $model->getAttributeLabel('username')]) ?>
+            ->textInput(['placeholder' => 'Usuário']) ?>
 
         <?= $form->field($model, 'password', [
             'options' => ['class' => 'form-group has-feedback'],
@@ -23,7 +23,7 @@ use yii\helpers\Html;
             'wrapperOptions' => ['class' => 'input-group mb-3']
         ])
             ->label(true)
-            ->passwordInput(['placeholder' => $model->getAttributeLabel('password')]) ?>
+            ->passwordInput(['placeholder' => 'Senha']) ?>
 
         <div class="row">
             <div class="col-8">
