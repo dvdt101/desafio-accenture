@@ -87,4 +87,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->AUTH_KEY = Yii::$app->security->generateRandomString();
     }
+
+     public function getFormattedCreatedAt()
+    {
+        $dt = \DateTime::createFromFormat('d-M-y h.i.s.u A', $this->CREATED_AT)
+            ?: \DateTime::createFromFormat('d-M-y h.i.s A', $this->CREATED_AT);
+
+        return $dt ? $dt->format('d/m/Y H:i') : $this->CREATED_AT;
+    }
 }

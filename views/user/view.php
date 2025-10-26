@@ -37,7 +37,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'EMAIL:email',
             'PROFILE',
             'STATUS',
-            'CREATED_AT',
+            [
+                'attribute' => 'CREATED_AT',
+                'label' => 'Data de cadastro',
+                'value' => $model->formattedCreatedAt,
+            ],
         ],
     ]) ?>
 
