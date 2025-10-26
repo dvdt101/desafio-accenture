@@ -1,233 +1,210 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Basic Project Template</h1>
-    <br>
-</p>
+# 🧩 DESAFIO ACCENTURE
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
-rapidly creating small projects.
+![PHP](https://img.shields.io/badge/PHP-8.1-blue?logo=php&logoColor=white)
+![Yii2](https://img.shields.io/badge/Yii2-Framework-green?logo=yii&logoColor=white)
+![Oracle](https://img.shields.io/badge/Oracle-23c-red?logo=oracle&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+> Sistema web desenvolvido com **Yii2 Framework** e **Oracle Database 23c**, contendo CRUDs relacionados, autenticação de usuários com perfis e um processo automatizado para atualização de pedidos.
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-basic.svg)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![build](https://github.com/yiisoft/yii2-app-basic/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-basic/actions?query=workflow%3Abuild)
+📦 **Repositório GitHub:** [github.com/dvdt101/desafio-accenture](https://github.com/dvdt101/desafio-accenture)
 
-DIRECTORY STRUCTURE
--------------------
+---
 
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
+## ⚙️ Descrição do Projeto
 
+O sistema foi desenvolvido com base no desafio técnico de PHP + SQL, possuindo dois módulos principais (**Clients** e **Orders**) e um **processo automatizado (job/cron)** que atualiza pedidos pendentes há mais de 7 dias.
 
+Além disso, foi criado um **módulo extra — Users (Usuários)**, que **não fazia parte do desafio original**, mas foi adicionado para incluir **autenticação e controle de acesso** com perfis de usuários.
 
-REQUIREMENTS
-------------
+---
 
-The minimum requirement by this project template that your Web server supports PHP 7.4.
+## 🧱 Estrutura dos Módulos
 
+### **1️⃣ Clients (Clientes)**
 
-INSTALLATION
-------------
+Gerencia o cadastro e o status de clientes.
 
-### Install via Composer
+| Campo | Tipo | Tradução | Descrição |
+|--------|------|-----------|-----------|
+| `ID` | NUMBER(10) | Identificador | Chave primária do cliente. |
+| `NAME` | VARCHAR(100) | Nome | Nome completo do cliente. |
+| `EMAIL` | VARCHAR(100) | E-mail | E-mail de contato do cliente. |
+| `STATUS` | VARCHAR(10) | Status | Pode ser **ATIVO** ou **INATIVO** (default: ATIVO). |
+| `CREATED_AT` | TIMESTAMP | Data de cadastro | Data e hora da criação do registro. |
 
-If you do not have [Composer](https://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](https://getcomposer.org/doc/00-intro.md#installation-nix).
+---
 
-You can then install this project template using the following command:
+### **2️⃣ Orders (Pedidos)**
 
-~~~
-composer create-project --prefer-dist yiisoft/yii2-app-basic basic
-~~~
+Gerencia os pedidos vinculados aos clientes.  
+💡 **Os campos `TYPE` e `DESCRIPTION` foram adicionados por mim como aprimoramentos ao desafio original**, permitindo categorizar melhor os pedidos e adicionar informações descritivas.
 
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
+| Campo | Tipo | Tradução | Descrição |
+|--------|------|-----------|-----------|
+| `ID` | NUMBER(10) | Identificador | Chave primária do pedido. |
+| `CLIENT_ID` | INTEGER | Cliente | Chave estrangeira que referencia o cliente. |
+| `TOTAL_VALUE` | DECIMAL(10,2) | Valor total | Valor total do pedido. |
+| `TYPE` | VARCHAR(10) | Tipo | **Campo adicional criado por mim** – indica o tipo do pedido: **SERVIÇOS**, **MÁQUINAS** ou **PEÇAS**. |
+| `DESCRIPTION` | VARCHAR(255) | Descrição | **Campo adicional criado por mim** – permite detalhar o conteúdo do pedido. |
+| `STATUS` | VARCHAR(10) | Status | Pode ser **PENDENTE**, **PAGO** ou **CANCELADO**. |
+| `ORDER_DATE` | TIMESTAMP | Data do pedido | Data e hora de criação do pedido. |
 
-~~~
-http://localhost/basic/web/
-~~~
+---
 
-### Install from an Archive File
+### **3️⃣ Users (Usuários)** 🧩 *(Módulo Extra)*
 
-Extract the archive file downloaded from [yiiframework.com](https://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
+> Este módulo foi **adicionado por mim** além do escopo original do desafio, para implementar **login e controle de perfis de acesso**.
 
-Set cookie validation key in `config/web.php` file to some random secret string:
+| Campo | Tipo | Tradução | Descrição |
+|--------|------|-----------|-----------|
+| `ID` | NUMBER(10) | Identificador | Chave primária do usuário. |
+| `USERNAME` | VARCHAR(50) | Nome de usuário | Nome de login usado no sistema. |
+| `NAME` | VARCHAR(100) | Nome | Nome completo do usuário. |
+| `EMAIL` | VARCHAR(100) | E-mail | E-mail associado. |
+| `PASSWORD_HASH` | VARCHAR(100) | Senha criptografada | Hash da senha de acesso. |
+| `PROFILE` | VARCHAR(20) | Perfil | Pode ser `ADMINISTRADOR` ou `GESTOR` (default: GESTOR). |
+| `STATUS` | VARCHAR(10) | Status | Pode ser **ATIVO** ou **INATIVO** (default: ATIVO). |
+| `AUTH_KEY` | VARCHAR(32) | Chave de autenticação | Token interno de autenticação. |
+| `ACCESS_TOKEN` | VARCHAR(255) | Token de acesso | Usado para autenticação via API. |
+| `CREATED_AT` | TIMESTAMP | Data de criação | Data e hora de criação do usuário. |
 
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
+---
+
+## 👥 Perfis de Acesso
+
+- **🛠️ ADMINISTRADOR:** acesso total ao sistema, incluindo configurações e gerenciamento.  
+- **📊 GESTOR:** acesso limitado às funcionalidades principais (**dashboard**, **clientes** e **pedidos**).
+
+**Usuário padrão criado na instalação:**  
+> 🧑‍💻 **USERNAME:** `admin`  
+> 🔑 **SENHA:** `admin123`
+
+O login é realizado apenas com **username** e **senha**.
+
+---
+
+## 🔁 Job / Cron Automático
+
+Um comando customizado chamado **`UpdateOrdersController`** executa diariamente para atualizar pedidos pendentes há mais de 7 dias.
+
+### **Descrição**
+- Localiza pedidos com status `PENDENTE` há mais de 7 dias.  
+- Atualiza o status para `CANCELADO`.  
+- Registra logs com data, hora e quantidade de pedidos alterados.
+
+### **Execução Manual**
+```bash
+php yii update-orders/index
 ```
 
-You can then access the application through the following URL:
+### **Logs**
+Gerados automaticamente em:
+```
+runtime/logs/pedidos_cron.log
+```
 
-~~~
-http://localhost/basic/web/
-~~~
+🧾 **Exemplo de log:**
+```
+[2025-10-25 02:00:00] 5 pedidos atualizados para status 'CANCELADO'
+```
 
+---
 
-### Install with Docker
+## 💻 Instalação e Execução
 
-Update your vendor packages
+### 📦 Requisitos
 
-    docker-compose run --rm php composer update --prefer-dist
-    
-Run the installation triggers (creating cookie validation code)
+- PHP 8.1+  
+- Composer  
+- Oracle Database 23c  
+- Yii2 Framework  
+- Extensão **OCI8** ativa  
+  > Não é necessário habilitar `pdo_oci`, pois é utilizada a biblioteca  
+  > `pdynarowski\yii2oci8\Oci8Connection` para conexão Oracle.
 
-    docker-compose run --rm php composer install    
-    
-Start the container
+---
 
-    docker-compose up -d
-    
-You can then access the application through the following URL:
+### ⚙️ Configuração do Banco de Dados
 
-    http://127.0.0.1:8000
-
-**NOTES:** 
-- Minimum required Docker engine version `17.04` for development (see [Performance tuning for volume mounts](https://docs.docker.com/docker-for-mac/osxfs-caching/))
-- The default configuration uses a host-volume in your home directory `.docker-composer` for composer caches
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
+O arquivo `config/db.example` deve ser renomeado para `db.php` e configurado conforme seu ambiente:
 
 ```php
+<?php
 return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
+    'class' => \pdynarowski\yii2oci8\Oci8Connection::class,
+    'dsn' => 'oci:dbname=//ORACLE_DOMAIN:1521/ORACLE_PDB;charset=AL32UTF8',
+    'username' => 'DESAFIO_ACCENTURE',
+    'password' => 'USER_PASSWORD',
+    'charset'  => 'AL32UTF8',
 ];
 ```
 
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
+---
 
+### 🚀 Rodando o Projeto
 
-TESTING
--------
-
-Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](https://codeception.com/).
-By default, there are 3 test suites:
-
-- `unit`
-- `functional`
-- `acceptance`
-
-Tests can be executed by running
-
-```
-vendor/bin/codecept run
-```
-
-The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
-tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
-they perform testing in real browser. 
-
-
-### Running  acceptance tests
-
-To execute acceptance tests do the following:  
-
-1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
-
-2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full-featured
-   version of Codeception
-
-3. Update dependencies with Composer 
-
-    ```
-    composer update  
-    ```
-
-4. Download [Selenium Server](https://www.seleniumhq.org/download/) and launch it:
-
-    ```
-    java -jar ~/selenium-server-standalone-x.xx.x.jar
-    ```
-
-    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
-
-    ```
-    # for Firefox
-    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
-    
-    # for Google Chrome
-    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
-    ``` 
-    
-    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
-    
-    ```
-    docker run --net=host selenium/standalone-firefox:2.53.0
-    ```
-
-5. (Optional) Create `yii2basic_test` database and update it by applying migrations if you have them.
-
-   ```
-   tests/bin/yii migrate
+1. **Clonar o repositório**
+   ```bash
+   git clone https://github.com/dvdt101/desafio-accenture.git
+   cd desafio-accenture
    ```
 
-   The database configuration can be found at `config/test_db.php`.
-
-
-6. Start web server:
-
-    ```
-    tests/bin/yii serve
-    ```
-
-7. Now you can run all available tests
-
-   ```
-   # run all available tests
-   vendor/bin/codecept run
-
-   # run acceptance tests
-   vendor/bin/codecept run acceptance
-
-   # run only unit and functional tests
-   vendor/bin/codecept run unit,functional
+2. **Instalar dependências**
+   ```bash
+   composer install
    ```
 
-### Code coverage support
+3. **Configurar o banco**
+   ```bash
+   cp config/db.example config/db.php
+   ```
+   Edite o arquivo `db.php` com suas credenciais Oracle.
 
-By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
-to collect code coverage. You can run your tests and collect coverage with the following command:
+4. **Executar migrations**
+   ```bash
+   php yii migrate
+   ```
 
-```
-#collect coverage for all tests
-vendor/bin/codecept run --coverage --coverage-html --coverage-xml
+5. **Rodar o servidor**
+   ```bash
+   php yii serve
+   ```
+   👉 Acesse: [http://localhost:8080](http://localhost:8080)
 
-#collect coverage only for unit tests
-vendor/bin/codecept run unit --coverage --coverage-html --coverage-xml
+---
 
-#collect coverage for unit and functional tests
-vendor/bin/codecept run functional,unit --coverage --coverage-html --coverage-xml
-```
+## 🧠 Tecnologias Utilizadas
 
-You can see code coverage output under the `tests/_output` directory.
+✅ PHP 8.1  
+✅ Yii2 Framework  
+✅ Oracle 23c  
+✅ AdminLTE Template  
+✅ Bootstrap 5  
+✅ pdynarowski/yii2-oci8  
+✅ Launchctl / Cron Jobs
+
+---
+
+## ⏱️ Tempo de Desenvolvimento
+
+| Etapa | Tempo |
+|-------|--------|
+| Estruturação e setup do Yii2 | 3h |
+| CRUDs (Clients, Orders e Users) | 8h |
+| Integração com Oracle | 4h |
+| Implementação do Job e logs | 4h |
+| Sistema de login e perfis | 3h |
+| Testes e ajustes finais | 2h |
+
+🕒 **Total:** 24 horas
+
+---
+
+## 👨‍💻 Autor
+
+**David Tavares Fernandes da Silva**  
+Desenvolvedor Full Stack • Recife – PE  
+🌐 [dtavaresfs.com](https://dtavaresfs.com)  
+💼 [LinkedIn](https://www.linkedin.com/in/dtavaresfs/)
