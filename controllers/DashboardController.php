@@ -16,7 +16,9 @@ class DashboardController extends Controller
             $stats = [
                 'clientsTotal' => (int) Client::find()->count(),
                 'clientsActive' => (int) Client::find()->where(['STATUS' => 'ATIVO'])->count(),
+                'clientsInactive' => (int) Client::find()->where(['STATUS' => 'INATIVO'])->count(),
                 'ordersTotal' => (int) Order::find()->count(),
+                'ordersPaid' => (int) Order::find()->where(['STATUS' => 'PAGO'])->count(),
                 'ordersPending' => (int) Order::find()->where(['STATUS' => 'PENDENTE'])->count(),
                 'ordersCancelled' => (int) Order::find()->where(['STATUS' => 'CANCELADO'])->count(),
             ];
@@ -30,3 +32,4 @@ class DashboardController extends Controller
         return $this->render('index', compact('stats'));
     }
 }
+

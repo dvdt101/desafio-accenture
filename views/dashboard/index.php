@@ -20,7 +20,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3><?= $stats['ordersPending'] ?></h3>
+                    <h3><?= $stats['clientsActive'] ?></h3>
                     <p>Clientes Ativos</p>
                 </div>
                 <div class="icon">
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col col-lg-4 col-md-6 col-sm-6 col-12">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h3><?= $stats['ordersCancelled'] ?></h3>
+                    <h3><?= $stats['clientsInactive'] ?></h3>
                     <p>Clientes Inativos</p>
                 </div>
                 <div class="icon">
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         <div class="col col-lg-3 col-md-5 col-sm-5 col-11">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3><?= $stats['ordersPending'] ?></h3>
+                    <h3><?= $stats['ordersPaid'] ?></h3>
                     <p>Pedidos Pagos</p>
                 </div>
                 <div class="icon">
