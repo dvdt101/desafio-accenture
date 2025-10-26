@@ -15,22 +15,22 @@ use yii\widgets\ActiveForm;
 
     <div class="mb-1 row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'NAME')->textInput(['maxlength' => true, 'placeholder' => 'Digite o nome e sobrenome']) ?>
+            <?= $form->field($model, 'NAME')->textInput(['maxlength' => 100, 'placeholder' => 'Digite o nome e sobrenome']) ?>
         </div>
     </div>
     <div class="mb-1 row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'USERNAME')->textInput(['maxlength' => true, 'placeholder' => 'Digite Nome de usuário Ex: david.silva']) ?>
+            <?= $form->field($model, 'USERNAME')->textInput(['maxlength' => 50, 'placeholder' => 'Digite Nome de usuário Ex: david.silva']) ?>
         </div>
     </div>
     <div class="mb-1 row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => true, 'placeholder' => 'Digite o E-mail']) ?>
+            <?= $form->field($model, 'EMAIL')->textInput(['maxlength' => 100, 'placeholder' => 'Digite o E-mail']) ?>
         </div>
     </div>
     <div class="mb-1 row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'PASSWORD_PLAIN')->passwordInput(['maxlength' => true, 'placeholder' => 'Digite o Senha para o usuário']) ?>
+            <?= $form->field($model, 'PASSWORD_PLAIN')->passwordInput(['maxlength' => 20, 'placeholder' => 'Digite o Senha para o usuário']) ?>
         </div>
     </div>
     <div class="row">
