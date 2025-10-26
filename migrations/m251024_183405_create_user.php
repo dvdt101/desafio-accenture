@@ -24,6 +24,11 @@ class m251024_183405_create_user extends Migration
         $this->execute('ALTER TABLE "USERS" ADD CONSTRAINT UQ_USER_USERNAME UNIQUE ("USERNAME")');
         $this->execute('ALTER TABLE "USERS" ADD CONSTRAINT UQ_USER_EMAIL UNIQUE ("EMAIL")');
 
+        $this->execute(
+            "ALTER TABLE USERS
+             ADD CONSTRAINT CK_USERS_STATUS
+             CHECK (status IN ('ATIVO','INATIVO'))"
+        );
 
         // Esse usuário é criado apenas para ambiente de desenvolvimento/teste.
         // Recomenda-se remover ou alterar as credenciais antes de ir para produção.
