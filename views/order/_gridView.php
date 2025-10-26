@@ -24,6 +24,8 @@ $columns = [
         'format' => ['currency', 'BRL'],
         'contentOptions' => ['class' => 'text-end'],
     ],
+    'TYPE',
+    'DESCRIPTION',
     'STATUS',
     [
         'attribute' => 'ORDER_DATE',

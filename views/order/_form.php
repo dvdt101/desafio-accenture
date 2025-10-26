@@ -28,7 +28,7 @@ use yii\widgets\MaskedInput;
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <?= $form->field($model, 'STATUS')->dropDownList(
                 [
                     'PAGO' => 'Pago',
@@ -37,6 +37,22 @@ use yii\widgets\MaskedInput;
                 ],
                 [
                     'prompt' => 'Selecione o status',
+                    'class' => 'form-control',
+                ]
+            ) ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <?= $form->field($model, 'TYPE')->dropDownList(
+                [
+                    'SERVIÇOS' => 'Serviço',
+                    'MAQUINAS' => 'Maquinas',
+                    'PEÇAS' => 'Peças',
+                ],
+                [
+                    'prompt' => 'Selecione o tipo',
                     'class' => 'form-control',
                 ]
             ) ?>
@@ -64,6 +80,18 @@ use yii\widgets\MaskedInput;
                         'removeMaskOnSubmit' => true,
                     ],
                 ]) ?>
+        </div>
+    </div>
+
+        <div class="mb-1 row">
+        <div class="col-sm-4">
+            <?= $form->field($model, 'DESCRIPTION')
+                ->textarea(
+                    [
+                        'maxlength' => 255,
+                        'placeholder' => 'Descrição do pedido',
+                    ]
+                )?>
         </div>
     </div>
     <div class="form-group">

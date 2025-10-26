@@ -14,7 +14,7 @@ class Order extends ActiveRecord
     public function rules()
     {
         return [
-            [['CLIENT_ID', 'TOTAL_VALUE', 'STATUS'], 'required', 'message' => 'O campo {attribute} é obrigatório.'],
+            [['CLIENT_ID', 'TOTAL_VALUE', 'STATUS', 'TYPE', 'DESCRIPTION'], 'required', 'message' => 'O campo {attribute} é obrigatório.'],
             [
                 'TOTAL_VALUE',
                 'filter',
@@ -28,6 +28,7 @@ class Order extends ActiveRecord
             ],
             ['TOTAL_VALUE', 'validateTotalValue'],
             ['STATUS', 'in', 'range' => ['PENDENTE', 'PAGO', 'CANCELADO']],
+            ['TYPE', 'in', 'range' => ['SERVIÇOS', 'MAQUINAS', 'PEÇAS']],
             ['CLIENT_ID', 'exist', 'targetClass' => Client::class, 'targetAttribute' => ['CLIENT_ID' => 'ID']],
         ];
     }
@@ -40,6 +41,8 @@ class Order extends ActiveRecord
             'ORDER_DATE' => 'Data do Pedido',
             'TOTAL_VALUE' => 'Valor(R$)',
             'STATUS' => 'Status',
+            'TYPE' => 'Tipo',
+            'DESCRIPTION' => 'Descrição',
         ];
     }
 
@@ -53,7 +56,7 @@ class Order extends ActiveRecord
     {
         $value = $this->$attribute;
 
-        if(!is_numeric($value)){
+        if (!is_numeric($value)) {
             $this->addError($attribute, 'Informe um valor válido');
             return;
         }
