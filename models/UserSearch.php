@@ -66,7 +66,7 @@ class UserSearch extends User
                 'CREATED_AT' => $this->CREATED_AT,
             ]);
 
-            $query->andFilterWhere(['like', 'USERNAME', $this->USERNAME])
+            $query->andFilterWhere(['like', 'USERNAME', $this->USERNAME ? mb_strtolower($this->USERNAME) : null])
                 ->andFilterWhere(['like', 'NAME', $this->NAME])
                 ->andFilterWhere(['like', 'EMAIL', $this->EMAIL])
                 ->andFilterWhere(['like', 'PASSWORD_HASH', $this->PASSWORD_HASH])
