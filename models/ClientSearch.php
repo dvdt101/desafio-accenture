@@ -66,14 +66,14 @@ class ClientSearch extends Client
                 'CREATED_AT' => $this->CREATED_AT,
             ]);
 
-            $query->andFilterWhere(['like', 'NAME', $this->NAME])
+            $query->andFilterWhere(['like', 'LOWER(NAME)', $this->NAME ? mb_strtolower($this->NAME) : null])
                 ->andFilterWhere(['like', 'EMAIL', $this->EMAIL])
                 ->andFilterWhere(['like', 'STATUS', $this->STATUS]);
 
             return $dataProvider;
         } catch (Exception $e) {
             Yii::error($e->getMessage(), __METHOD__);
-            Yii::$app->session->setFlash('error', 'Erro ao realizar a busca de clientes.');
+            Yii::$app->session->setFlash('error', $e->getMessage());
             return new ActiveDataProvider([
                 'query' => Client::find()->where('0=1'),
             ]);
